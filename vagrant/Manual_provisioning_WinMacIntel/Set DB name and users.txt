@@ -1,0 +1,22 @@
+Set DB name and users.
+# mysql -u root -pQwer.1234
+mysql> create database accounts;
+mysql> grant all privileges on accounts.* TO 'admin'@'%' identified by 'Qwer.1234' ;
+mysql> FLUSH PRIVILEGES;
+mysql> exit;
+
+Download Source code & Initialize Database.
+# git clone -b local-setup https://github.com/devopshydclub/vprofile-project.git
+# cd vprofile-project
+# mysql -u root -pQwer.1234 accounts < src/main/resources/db_backup.sql
+# mysql -u root -pQwer.1234 accounts
+mysql> show tables;
+Restart mariadb-server
+# systemctl restart mariadb
+Starting the firewall and allowing the mariadb to access from port no. 3306
+# systemctl start firewalld
+# systemctl enable firewalld
+# firewall-cmd --get-active-zones
+# firewall-cmd --zone=public --add-port=3306/tcp --permanent
+# firewall-cmd --reload
+# systemctl restart mariadbMEMC
